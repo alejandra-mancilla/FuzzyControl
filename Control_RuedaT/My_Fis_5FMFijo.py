@@ -14,6 +14,7 @@ def fis_opt(e_teta, error, params=[], grafica=False):
     x_error  = np.arange(-5, 5, 0.5)
     x_omega  = np.arange(-5, 5, 0.5)
 
+# estas son las 5 funciones de membresia con parametros fijos
 
     # Generate fuzzy membership functions trapezoidal y triangular
     e_teta_hi_neg = fuzz.trapmf(x_e_teta, [-5, -5,-2, -1])
