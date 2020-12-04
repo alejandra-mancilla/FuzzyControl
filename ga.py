@@ -23,7 +23,7 @@ toolbox.register("attr_float", random.uniform,  1, 9)
 toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, 4)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-
+# Tool Box
 toolbox.register("evaluate", prueba_fis)
 toolbox.register("mate", tools.cxOnePoint)
 toolbox.register("mutate", tools.mutGaussian, mu=2.0,sigma=0.2,indpb=0.2) # optimiza parametro de GA
