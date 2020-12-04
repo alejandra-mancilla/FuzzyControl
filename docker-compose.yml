@@ -1,0 +1,40 @@
+version: '3'
+
+# definiciones de los servicios
+services:
+  redis:
+    image: "redis:alpine"
+    ports:
+    - "6379:6379"
+  worker:
+    build: './Worker'
+    depends_on:
+      - redis
+      #volumes:
+       # - ./Worker:/code
+    command: python worker.py
+    environment:
+      PYTHONUNBUFFERED: 1
+      REDIS_HOST: redis
+
+  worker2:
+    build: './Worker'
+    depends_on:
+      - redis
+      #volumes:
+      # - ./Worker:/code
+    command: python worker.py
+    environment:
+      PYTHONUNBUFFERED: 1
+      REDIS_HOST: redis
+
+  worker3:
+    build: './Worker'
+    depends_on:
+      - redis
+      #volumes:
+      # - ./Worker:/code
+    command: python worker.py
+    environment:
+      PYTHONUNBUFFERED: 1
+      REDIS_HOST: redis
