@@ -7,6 +7,13 @@ import matplotlib.pyplot as plt
 #   obtener omega
 def fis_opt(e_teta, error, params=[], grafica=False):
     a, b, c, d = params
+
+    a = a if a >= 0 else 0
+    b = b if b >= 0 else 0
+    c = c if c >= 0 else 0
+    d = d if d >= 0 else 0
+
+
     x_e_teta = np.arange(-5, 5, .5)
     x_error  = np.arange(-5, 5, .5)
     x_omega  = np.arange(-8, 8, .5)
