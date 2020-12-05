@@ -8,15 +8,15 @@ import matplotlib.pyplot as plt
 def fis_opt(e_teta, error, params=[], grafica=False):
     a, b, c, d = params
 
-    a = a if a >= 0 else 0
-    b = b if b >= 0 else 0
-    c = c if c >= 0 else 0
-    d = d if d >= 0 else 0
+    a = a if a >= 0 else 0.001
+    b = b if b >= 0 else 0.001
+    c = c if c >= 0 else 0.001
+    d = d if d >= 0 else 0.001
 
 
-    x_e_teta = np.arange(-5, 5, .5)
-    x_error  = np.arange(-5, 5, .5)
-    x_omega  = np.arange(-8, 8, .5)
+    x_e_teta = np.arange(-5, 5, .1)
+    x_error  = np.arange(-5, 5, .1)
+    x_omega  = np.arange(-8, 8, .1)
 
     # Generate fuzzy membership functions trapezoidal y triangular
     e_teta_hi_neg = fuzz.trapmf(x_e_teta, [-100,-100, -a,  0])
@@ -157,5 +157,5 @@ def fis_opt(e_teta, error, params=[], grafica=False):
     return omega
 
 if __name__ == '__main__':
-    omega = fis_opt(-1.0225139922075002, -1.5029882118831652,[0.9054750552355649, 1.313749939916838, 1.2115608804558582, 1.0984015671585659],True)
+    omega = fis_opt(-1.0225139922075002, -1.5029882118831652,[0.5352509072211054, 0.8290705366152646, 0.4913977583475415, 0.5530603377966343],True)
     print(omega) ## debe imprimir 3.743589743589744

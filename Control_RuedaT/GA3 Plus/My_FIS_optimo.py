@@ -5,47 +5,62 @@ import matplotlib.pyplot as plt
 # Generate universe variables
 #   * inputs : error teta y error
 #   obtener omega
-def fis_tip(e_teta, error, grafica=False):
+def not_less_than_zero(v):
+    return v if v >= 0 else 0.001
 
-    x_e_teta = np.arange(-5, 5, 1)
-    x_error  = np.arange(-5, 5, 1)
-    x_omega  = np.arange(-8, 8, 1)
+def fis_opt(e_teta, error, params=[], grafica=False):
+    a, b, c, d, e, f, g, h = list(map(not_less_than_zero,params))
+
+
+
+    x_e_teta = np.arange(-5, 5, .1)
+    x_error  = np.arange(-5, 5, .1)
+    x_omega  = np.arange(-8, 8, .1)
 
     # Generate fuzzy membership functions trapezoidal y triangular
-    e_teta_hi_neg = fuzz.trapmf(x_e_teta, [-100,-100, -2,  0])
-    e_teta_lo     = fuzz.trimf(x_e_teta, [-1, 0, 1])
-    e_teta_hi_pos = fuzz.trapmf(x_e_teta, [ 0, 2, 100, 100])
+    e_teta_hi_neg = fuzz.trapmf(x_e_teta, [-100, -100, -a,  -a+b])
+    e_teta_lo     = fuzz.trimf(x_e_teta, [-c, 0, d])
+    e_teta_hi_pos = fuzz.trapmf(x_e_teta, [ f-e, f, 600, 600])
 
-    error_hi_neg  = fuzz.trapmf(x_error,  [-100,-100,-2, 0])
-    error_lo      = fuzz.trimf(x_error,  [-1, 0, 1])
-    error_hi_pos  = fuzz.trapmf(x_error,  [ 0, 2, 100,100])
+    error_hi_neg  = fuzz.trapmf(x_error,  [-600,-600,-h, 0])
+    error_lo      = fuzz.trimf(x_error,  [-g, 0, g])
+    error_hi_pos  = fuzz.trapmf(x_error,  [ 0, h, 600,600])
 
     omega_hi_neg  = fuzz.trapmf(x_omega,  [-8,-8,-2,-.5])
     omega_lo      = fuzz.trimf(x_omega,  [-1, 0, 1])
     omega_hi_pos  = fuzz.trapmf(x_omega,  [ .5, 2, 8, 8])
 
-    # We need the activation of our fuzzy membership functions at these values.
+
+      # We need the activation of our fuzzy membership functions at these values.
     # This is what fuzz.interp_membership exists for!
     e_teta_level_hi_neg = fuzz.interp_membership(x_e_teta, e_teta_hi_neg, e_teta)
+
     e_teta_level_lo = fuzz.interp_membership(x_e_teta, e_teta_lo, e_teta)
+
     e_teta_level_hi_pos = fuzz.interp_membership(x_e_teta, e_teta_hi_pos, e_teta)
 
     error_level_hi_neg = fuzz.interp_membership(x_error, error_hi_neg, error)
+
     error_level_lo = fuzz.interp_membership(x_error, error_lo, error)
+
     error_level_hi_pos = fuzz.interp_membership(x_error, error_hi_pos, error)
 
     if grafica:
         # Visualize these universes and membership functions
         fig, (ax0, ax1, ax2) = plt.subplots(nrows=3, figsize=(8, 9))
 
-        ax0.plot(x_e_teta, e_teta_hi_neg, 'b', linewidth=1.5, label='Alto negativo' )
+        ax0.plot(x_e_teta, e_teta_hi_neg, 'b', linewidth=1.5, label='Alto negativo')
+
         ax0.plot(x_e_teta, e_teta_lo, 'g', linewidth=1.5, label='Bajo')
+
         ax0.plot(x_e_teta, e_teta_hi_pos, 'r', linewidth=1.5, label='Alto positivo')
         ax0.set_title('Error Theta')
         ax0.legend()
 
         ax1.plot(x_error, error_hi_neg, 'b', linewidth=1.5, label='Alto negativo')
+
         ax1.plot(x_error, error_lo, 'g', linewidth=1.5, label='Bajo')
+
         ax1.plot(x_error, error_hi_pos, 'r', linewidth=1.5, label='Alto positivo')
         ax1.set_title('Error')
         ax1.legend()
@@ -141,5 +156,10 @@ def fis_tip(e_teta, error, grafica=False):
     return omega
 
 if __name__ == '__main__':
-    omega = fis_tip(-1.0225139922075002, -1.5029882118831652,True)
-    print(omega) ## debe imprimir 3.8987920426498093
+    omega = fis_opt(-1.0225139922075002, -1.5029882118831652,
+                    [0.49440840896108484, 0.4761521585077785, 0.4547396344507796, 0.7180956158014213,
+                     0.3811410136125377,
+                     0.006740126516665557, 0.0988441078859817, 0.8455460329691981]
+                    ,
+    True)
+    print(omega) ## debe imprimir 3.743589743589744

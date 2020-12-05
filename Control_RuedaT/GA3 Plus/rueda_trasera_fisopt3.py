@@ -138,7 +138,11 @@ def simulacion(ruta, meta_objetivo, params):
             break
         error.append(e)
 
-        di = control_rueda_trasera(v0, yaw0, e, k, yaw_ref,params)
+        try:
+            di = control_rueda_trasera(v0, yaw0, e, k, yaw_ref,params)
+        except :
+            error_flag = True
+            break
 
         speed_ref, direction = calc_target_speed(yaw0, yaw_ref, direction)
         aceleracion = pid_control(speed_ref, v0)
@@ -267,7 +271,9 @@ if __name__ == '__main__':
     # ruta m
 
     #prueba_simulador([0.9054750552355649, 1.313749939916838, 1.2115608804558582, 1.0984015671585659],True)
-    prueba_simulador([0.5352509072211054, 0.8290705366152646, 0.4913977583475415, 0.5530603377966343], True)
+    #prueba_simulador([0.5352509072211054, 0.8290705366152646, 0.4913977583475415, 0.5530603377966343], True)
+    prueba_simulador([0.49440840896108484, 0.4761521585077785, 0.4547396344507796, 0.7180956158014213, 0.3811410136125377,
+     0.006740126516665557, 0.0988441078859817, 0.8455460329691981], True)
 
     # ruta A
     #prueba_simulador([0.08088644788091975, 2.8483486172253603, 0.8885607474620291, 0.5418827997757919],True)

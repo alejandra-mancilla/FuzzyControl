@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from ruta_curvas import CubicSplinePath, Pi_2_pi
 import math
-from My_FIS_optimo import fis_opt
-#from My_Fis_5FMFijo import fis_opt
+#from My_FIS_optimo import fis_opt
+from My_Fis_5FMFijo import fis_opt
 
 L= 2.9  # longitud del vehiculo en mts
 KTH = 1.0   # constante de ajuste k2
@@ -176,7 +176,6 @@ def prueba_simulador(params, grafica=False):
     # puntos para definir la ruta s
     #ax = [0.0, 2.0, 2.5, 5.0, 7.5, -3.0, -1.0]
     #ay = [0.0, 3.0, 6.0, 6.5, 5.0, 5.0, -2.0]
-    print(params)
 
     lista_rutas=[[[0.0, 6.0, 12.5, 5.0, 7.5, 3.0, -1.0], [0.0, 0.0,  5.0, 6.5, 3.0, 5.0, -2.0]]]
 
@@ -207,10 +206,10 @@ def rutas(ax, ay, params, grafica=False):  # metodo a llamar 3 veces
         #yaw_pi = map(Pi_2_pi,yaw)
         if error_flag:
             print("Bad Controller")
-            return 5000,
+            #return 5000,
         if not goal_flag:
             print("no llego")
-            return 2000,
+            #return 2000,
         # error_rmse = sum([i**2 for i in error])/len(error)**.5
         # print(error_rmse)
         # return error_rmse,
@@ -218,7 +217,7 @@ def rutas(ax, ay, params, grafica=False):  # metodo a llamar 3 veces
         #plt.plot(ax,ay, "xb", label="Input")
         #plt.plot(-1,1, "*b",label = "punto")
         #valor_s=ruta_referencia.__find_nearest_point(.1, -1, 1)
-        #grafica=True
+        grafica=True
         if grafica:
 
             spline = np.arange(0, ruta_referencia.length, 0.1)
@@ -229,7 +228,7 @@ def rutas(ax, ay, params, grafica=False):  # metodo a llamar 3 veces
             plt.subplots(1)
             plt.plot(ax, ay, "xb", label="Input")
             plt.plot(ruta_referencia.X(spline),ruta_referencia.Y(spline), "-r", label= "Ruta")
-            plt.plot(x[:300], y[:300], "-g", label= "Seguimiento")
+            plt.plot(x[:30], y[:30], "-g", label= "Seguimiento")
             plt.axis("equal")
             plt.grid(True)
             plt.xlabel("x (mts)")
@@ -265,10 +264,7 @@ def rutas(ax, ay, params, grafica=False):  # metodo a llamar 3 veces
 
 if __name__ == '__main__':
     # ruta m
-
     #prueba_simulador([0.9054750552355649, 1.313749939916838, 1.2115608804558582, 1.0984015671585659],True)
-    prueba_simulador([0.5352509072211054, 0.8290705366152646, 0.4913977583475415, 0.5530603377966343], True)
-
     # ruta A
     #prueba_simulador([0.08088644788091975, 2.8483486172253603, 0.8885607474620291, 0.5418827997757919],True)
     # ruta s
@@ -277,4 +273,4 @@ if __name__ == '__main__':
     #prueba_simulador([0.41192781559444747, 7.764405748264, 0.7381872279193622, 0.8387152453671036],True)
     #prueba_simulador([3.824353739502582, 1.1507662981789863, 1.2050211027497757, 0.12306023229956276],True)
     #prueba_simulador([0.7129072353481256, 0.6950511269226142, 0.4050757896004107, 0.5196998000235793, 0.59708268324291787, 0.48749702495492913, 0.3155646574417933, 0.4239541979859553],True)
-    #prueba_simulador([0.699229139753049, 0.4694223323379423, 0.45265565822337295, 0.7055835655386178, 0.7892938318573711, 0.9128506262286898, 0.12208385398422117, 0.0027819470367980575],True)
+    prueba_simulador([0.699229139753049, 0.4694223323379423, 0.45265565822337295, 0.7055835655386178, 0.7892938318573711, 0.9128506262286898, 0.12208385398422117, 0.0027819470367980575],True)

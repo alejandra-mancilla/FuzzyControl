@@ -13,10 +13,10 @@ creator.create("Individual", list, typecode='d', fitness=creator.FitnessMin)
 toolbox = base.Toolbox()
 
 # Attribute generator
-toolbox.register("attr_float", random.uniform, 0,2)
+toolbox.register("attr_float", random.uniform, 0,1)
 
 # Structure initializers
-toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, 4)
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, 8)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("evaluate", prueba_simulador)
 toolbox.register("mate", tools.cxOnePoint)
