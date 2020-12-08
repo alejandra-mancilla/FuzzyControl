@@ -9,9 +9,8 @@ def not_less_than_zero(v):
     return v if v >= 0 else 0.001
 
 def fis_opt(e_teta, error, params=[], grafica=False):
-    a, b, c, d, e, f, g, h = list(map(not_less_than_zero,params))
-
-
+#   a, b, c, d, e, f, g, h, i, j, k, l, m, n ,o, p, q,  r = list(map(not_less_than_zero,params))
+    a, b, c, d, e, f, g, h, i = list(map(not_less_than_zero, params))
 
     x_e_teta = np.arange(-5, 5, .1)
     x_error  = np.arange(-5, 5, .1)
@@ -19,18 +18,30 @@ def fis_opt(e_teta, error, params=[], grafica=False):
 
     # Generate fuzzy membership functions trapezoidal y triangular
     e_teta_hi_neg = fuzz.trapmf(x_e_teta, [-100, -100, -a,  -a+b])
-    e_teta_lo     = fuzz.trimf(x_e_teta, [-c, 0, d])
-    e_teta_hi_pos = fuzz.trapmf(x_e_teta, [ f-e, f, 600, 600])
+    e_teta_lo     = fuzz.trimf(x_e_teta, [-c, 0, c])
+    e_teta_hi_pos = fuzz.trapmf(x_e_teta, [ a-b, a, 600, 600])
 
-    error_hi_neg  = fuzz.trapmf(x_error,  [-600,-600,-h, 0])
-    error_lo      = fuzz.trimf(x_error,  [-g, 0, g])
-    error_hi_pos  = fuzz.trapmf(x_error,  [ 0, h, 600,600])
+    error_hi_neg  = fuzz.trapmf(x_error,  [-600,-600,-d, -d+e ])
+    error_lo      = fuzz.trimf(x_error,  [-f, 0, f])
+    error_hi_pos  = fuzz.trapmf(x_error,  [ d-e , d, 600,600])
 
-    omega_hi_neg  = fuzz.trapmf(x_omega,  [-8,-8,-2,-.5])
-    omega_lo      = fuzz.trimf(x_omega,  [-1, 0, 1])
-    omega_hi_pos  = fuzz.trapmf(x_omega,  [ .5, 2, 8, 8])
+    omega_hi_neg  = fuzz.trapmf(x_omega,  [-8,-8,-g,-g+h])
+    omega_lo      = fuzz.trimf(x_omega,  [-i, 0, i])
+    omega_hi_pos  = fuzz.trapmf(x_omega,  [ g-h,g , 8, 8])
 
-
+    # Generate fuzzy membership functions trapezoidal y triangular
+    # e_teta_hi_neg = fuzz.trapmf(x_e_teta, [-100, -100, -a,  -a+b])
+    # e_teta_lo     = fuzz.trimf(x_e_teta, [-c, 0, d])
+    # e_teta_hi_pos = fuzz.trapmf(x_e_teta, [ f-e, f, 600, 600])
+    #
+    # error_hi_neg  = fuzz.trapmf(x_error,  [-600,-600,-g, -g+h ])
+    # error_lo      = fuzz.trimf(x_error,  [-i, 0, j])
+    # error_hi_pos  = fuzz.trapmf(x_error,  [ k-l , k, 600,600])
+    #
+    # omega_hi_neg  = fuzz.trapmf(x_omega,  [-8,-8,-m,-m+n])
+    # omega_lo      = fuzz.trimf(x_omega,  [-o, 0, p])
+    # omega_hi_pos  = fuzz.trapmf(x_omega,  [ q-r,q , 8, 8])
+    #
       # We need the activation of our fuzzy membership functions at these values.
     # This is what fuzz.interp_membership exists for!
     e_teta_level_hi_neg = fuzz.interp_membership(x_e_teta, e_teta_hi_neg, e_teta)
@@ -157,9 +168,9 @@ def fis_opt(e_teta, error, params=[], grafica=False):
 
 if __name__ == '__main__':
     omega = fis_opt(-1.0225139922075002, -1.5029882118831652,
-                    [0.49440840896108484, 0.4761521585077785, 0.4547396344507796, 0.7180956158014213,
-                     0.3811410136125377,
-                     0.006740126516665557, 0.0988441078859817, 0.8455460329691981]
+                    [0.35573812412349537, 0.14097144606903278, 0.47316964441604503, 0.23642073771498867,
+                     0.5270759254382571,
+                     0.4394496478286478, 1.2364306914050767, -0.22083350225600715, 0.429290361499984]
                     ,
     True)
     print(omega) ## debe imprimir 3.743589743589744

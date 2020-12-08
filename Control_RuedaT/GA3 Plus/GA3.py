@@ -16,7 +16,7 @@ toolbox = base.Toolbox()
 toolbox.register("attr_float", random.uniform, 0,1)
 
 # Structure initializers
-toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, 8)
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float,9)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("evaluate", prueba_simulador)
 toolbox.register("mate", tools.cxOnePoint)
@@ -72,7 +72,7 @@ def main(config):
 
     for gen in range(config['ngen']):
         # decendencia
-
+        print('gen ', gen )
         offspring = toolbox.select(config['pop'], len(config['pop']))
         offspring = list(map(toolbox.clone, offspring))
 
@@ -169,7 +169,7 @@ if __name__ == "__main__":
     #for mut in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]:
     #   for cru in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]:
     # cuando se use worker se leer de la cola la sig linea
-    config = {'pop_size': 50,'cxpb':0.7, 'mutpb':0.3, 'ngen':20}
+    config = {'pop_size': 60,'cxpb':0.7, 'mutpb':0.3, 'ngen':40}
     config = main(config) # corre el algortimo
     # esto no se ejecuta aqui solo es para probar
     #es lo que se guardo en la cola
